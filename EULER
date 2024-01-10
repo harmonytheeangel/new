@@ -1,0 +1,52 @@
+import matplotlib.pyplot as plt
+import logging, math
+logger = logging.getLogger("main")
+x , y , h , xn = 0 , 0 ,0 , 0
+
+# refer to https://www.snapxam.com/solver?p=%5Cfrac%7Bdy%7D%7Bdx%7D%3Dy%5C%3A%2Bx&method=0 to solve problems
+def function(x, y):
+    return (x ** 2)
+
+def analytical(x, y):
+    return math.exp(pow(x, 3)/3)  #if you need to change the question
+
+try:
+    x = float(input("x0: "))
+    y = float(input("y: "))
+    h = float(input("h: "))
+    xn = float(input("xn: "))
+except ValueError:
+    logger.warning("TRY A NUMBER INSTEAD!")
+
+def euler(x, y, h, xn ):
+        x_list = []
+        analytical_list = []
+        approximate_list = []
+        print(f"x_list \tapproximate_list (h = {h})  exact list  \t error")
+        while x <= xn:
+            exact = analytical(x, y)
+            print(
+                f"{round(x, 5)} \t\t\t {round(y, 5)}  \t\t\t  {round(exact, 5)}\t\t {round(abs(round(exact, 5) - round(y, 2)), 5)} ")
+            approximate_list.append(y)
+            y = y + h * function(x, y)
+            x_list.append(x)
+            analytical_list.append(exact)
+
+            x = x + h
+        return x_list, approximate_list, analytical_list
+
+        # y3 += 0.02 * function(x, y3)
+logger.error(
+        "THIS IS USED TO SOLVE EULER'S METHOD , it shows the value of x , y , the exact solution and the error "
+        "between the exact solution and y.".upper())
+x_list, approximate_list, analytical_list = euler(x, y, h, xn )
+
+plt.figure(figsize = (11,7))
+plt.plot(x_list, analytical_list, "black", label = "Exact solution")
+plt.plot(x_list, approximate_list, "blue", label = f"Approximate solution ( Euler h = {h} )")
+
+plt.xlabel("t")
+plt.ylabel("f(t)")
+
+plt.legend(loc = "upper left")
+plt.show()
