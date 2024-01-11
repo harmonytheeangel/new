@@ -1,0 +1,37 @@
+#harmonytheeangel
+from calendar import calendar
+from enum import Enum
+from tkinter import *
+import logging
+logger = logging.getLogger("main")
+logger.error("THIS IS USED TO GET A CALENDAR FOR A PARTICULAR YEAR OF YOUR CHOICE...IT USES THE CONCEPT OF "
+             "ENUMERATOR DATA TYPES.")
+root = Tk()
+#year_2 = int(input("ENTER A YEAR: "))
+
+picture = PhotoImage(file="cul.gif")
+
+frame1 = Frame(root)#picture
+frame2 = Frame(root)
+
+canvas = Canvas(frame1)
+canvas.create_image(80 , 130, image = picture )
+# canvas["width"] = 200
+# canvas["height"] = 10
+canvas.pack(side = LEFT)
+frame1.grid()
+
+class Calendar(Enum ):
+    year = calendar(2019)
+    Enum.year_2 = 2024
+
+app = Frame(root)
+app.grid()
+
+#root.geometry("650x700")
+
+label = Label(app, text= calendar(Calendar.year_2) ,font= ("consolas" , 7)
+            ).pack()
+#label = Label(app, text= picture , height= 150 , width= 150).pack()
+#label.grid(row= 0 , column= 0)
+root.mainloop()
