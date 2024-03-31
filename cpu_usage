@@ -1,0 +1,40 @@
+import psutil
+import shutil
+
+#welcome to harmony's world(->-)
+#print(os.path)
+#print(f"this{os.getcwd()}")
+#print(os.path.dirname(__file__))
+__path__= "C:\\Users\\Harmony\\AppData\\Local\\Programs\\Python\\Python39\\lib\\ntpath.py"
+print(shutil.disk_usage(__path__))
+
+free_storage = shutil.disk_usage(__path__)[2]/1000000000#disk storage used
+full_storage = shutil.disk_usage(__path__)[0]/1000000000
+percent = free_storage/full_storage * 100
+try:
+    if percent > 20:
+        print("disk space is above 20%...So true")
+        print(f"Your free disk space is {round(percent, 2)}%\n")
+    else:
+        print("false")
+
+    def cpu_usage():
+        # Calling psutil.cpu_precent() for 2 seconds
+        cpu_in_percent = psutil.cpu_percent(2)
+        print('The CPU usage in percent : ', cpu_in_percent)
+        if cpu_in_percent < 75:
+            print("Cpu usage is less than 75%...true")
+        else:
+            print("false")
+        i = str(input("DO YOU WANT TO PRINT CPU INFORMATION\nyes or no?"))
+        if i == "yes":
+            print('RAM storage(GB):', psutil.virtual_memory()[0] / 1000000000)  # storage in GB
+            print('RAM available (GB):', psutil.virtual_memory()[1] / 1000000000)
+            print('RAM Used (GB):', psutil.virtual_memory()[3] / 1000000000)
+            print(f'RAM percent Used (%): {psutil.virtual_memory()[2]}%')
+        else:
+            print("CONTINUE...")
+except ValueError:
+    print("RERUN THE PROGRAM!>>")
+
+cpu_usage()
